@@ -7,7 +7,8 @@ from csv import reader
 
 
 # TODO : Veri setine göre uzun soluklu filmler hangi dilde oluşturulmuştur?
-filen = "NetflixOriginals.csv"
+
+filen = "C:/Users/hakan/OneDrive/Belgeler/globalAiHub/globalaihub-netflix/globalaihub-netflixanalysis/NetflixOriginals.csv"
 data = pd.read_csv(filen, encoding = "ISO-8859-1")
 #data.head()
 sorted = data.sort_values(by = "Runtime")
@@ -18,18 +19,28 @@ sorted["Runtime"].value_counts()
 # TODO 2019 Ocak ile 2020 Haziran tarihleri arasında 'Documentary' türünde
 #  çekilmiş filmlerin IMDB değerlerini bulup görselleştiriniz
 list_1 = []
-with open('NetflixOriginals.csv', 'r') as read_obj:
+months = ["January","February","March","April","May","June","July",
+"August","September","October","November","December"]
+sub_months = ["January","February","March","April","May","June"]
+with open(filen, "r", encoding="ISO-8859-1") as read_obj:
     # pass the file object to reader() to get the reader object
     csv_reader = reader(read_obj)
     # Iterate over each row in the csv using reader object
     for row_ in csv_reader:
         # row variable is a list that represents a row in csv
         for j in row_:
+            sub_row_2 = row_[2].split()
+            if "2019" in j:
+                if sub_row_2[0] in months:
+                    list_1.append(row_)
             if "2020" in j:
-                list_1.append(row_)
+                if sub_row_2[0] in sub_months:
+                    list_1.append(row_)
 
-hello = pd.DataFrame.from_records(list_1[1:],columns=list_1[0])
-print(hello)
+df = pd.DataFrame (list_1, columns = ["Title","Genre","Premiere","Runtime","IMDB Score","Language"])
+df.to_excel("df.xlsx")
+#hello = pd.DataFrame.from_records(list_1[1:],columns=list_1[0])
+#print(hello)
 #print(sorted[sorted["Premiere"] == 2021])
 
 # TODO İngilizce çekilen filmler içerisinde hangi tür en yüksek IMDB puanına sahiptir?
