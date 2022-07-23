@@ -179,7 +179,7 @@ def outlier_find(dataframe):
     
     print("Before: ",dataframe.shape)
     
-    dataframe = dataframe[~((dataframe < (min_bound)) | (dataframe > (max_bound))).any(axis=1)]
-    print("After: ", dataframe.shape )
+    # dataframe = dataframe[~((dataframe < (min_bound)) | (dataframe > (max_bound))).any(axis=1)]
+    # print("After: ", dataframe.shape )
     
     return dataframe
