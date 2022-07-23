@@ -30,12 +30,13 @@ with open(filen, "r", encoding="ISO-8859-1") as read_obj:
         # row variable is a list that represents a row in csv
         for j in row_:
             sub_row_2 = row_[2].split()
-            if "2019" in j:
-                if sub_row_2[0] in months:
-                    list_1.append(row_)
-            if "2020" in j:
-                if sub_row_2[0] in sub_months:
-                    list_1.append(row_)
+            if "Documentary" in row_:
+                if "2019" in j:
+                    if sub_row_2[0] in months:
+                        list_1.append(row_)
+                if "2020" in j:
+                    if sub_row_2[0] in sub_months:
+                        list_1.append(row_)
 
 df = pd.DataFrame (list_1, columns = ["Title","Genre","Premiere","Runtime","IMDB Score","Language"])
 df.to_excel("df.xlsx")
@@ -45,6 +46,9 @@ df.to_excel("df.xlsx")
 
 # TODO İngilizce çekilen filmler içerisinde hangi tür en yüksek IMDB puanına sahiptir?
 
+sorted_imdb = data[data["Language"] == "English"].sort_values(by = "IMDB")
+
+print(sorted_imdb.head())
 # TODO 'Hindi' Dilinde çekilmiş olan filmlerin ortalama 'runtime' suresi nedir?
 
 # TODO 'Genre' Sütunu kaç kategoriye sahiptir ve bu kategoriler nelerdir? Görselleştirerek ifade ediniz.
