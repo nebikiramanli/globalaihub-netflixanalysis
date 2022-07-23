@@ -51,3 +51,24 @@ def get_correlation_matrix(dataframe, title, fig_size=(15,10), columns=[]):
     plt.title(title)
     plt.show()
     return figure
+
+
+def series_to_bar_plot(dataframe, title, fig_size=(15,10), color="m"):
+    """
+    This function returns a bar plot.
+    """
+    figure = plt.figure(figsize=fig_size)
+    dataframe.plot(kind='bar', figsize=fig_size, color=color, title=title)
+    plt.title(title)
+    plt.show()
+
+    return figure
+
+
+def plot_outlier(dataframe, fig_size=(8,6)):
+    num_cols = dataframe.select_dtypes(include = ['float64',"int64"])
+    for col in num_cols:
+        figure = plt.figure(figsize=fig_size)
+        sns.boxplot(y = dataframe[col])
+        plt.title(f"Boxplot of {col.upper()}")
+        plt.show()
